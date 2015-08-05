@@ -19,7 +19,7 @@ import tempfile
 
 import conda
 from conda.compat import urlparse, StringIO
-from conda.config import get_proxy_servers
+from conda.config import get_proxy_servers, ssl_verify
 
 import requests
 
@@ -63,6 +63,8 @@ class CondaSession(requests.Session):
         proxies = get_proxy_servers()
         if proxies:
             self.proxies = proxies
+
+        self.verify = ssl_verify
 
         # Configure retries
         if retries:
